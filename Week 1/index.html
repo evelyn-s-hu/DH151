@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Hello World</title>
+	<meta charset="utf-8" />
+
+	<!-- style sheets -->
+	<link rel="stylesheet" href="css/style.css">
+    
+    <!-- leaflet -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+</head>
+<body>
+
+	<div class="header">
+		Living in Taiwan
+	</div>
+	<div class="sidebar">
+		During the 2020-21 school year, I moved to Taipei, Taiwan while UCLA adopted a remote learning module.
+        My parents are both from Taiwan, and while I had been there on vacations, I had always wanted to live there long-term.
+	</div>
+	<div class="content">
+		<div id="map"></div>
+	</div>
+
+    <script>
+        var map = L.map('map').setView([25.141046739148774, 121.49992167149995], 17);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+	    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        var marker = L.marker([25.141046739148774, 121.49992167149995]).addTo(map)
+		.bindPopup('7-11 in Beitou District, Taipei, Taiwan<br> This is <i>always</i> the first stop my family makes upon landing when we visit Taiwan! Asian convenience stores just hit different.')
+		.openPopup();	
+
+        var marker = L.marker([25.136944913706458, 121.50221875732852]).addTo(map)
+		.bindPopup('Xinbeitou MRT Station<br> The closest metro station from where I lived. The metro system is incredibly convenient in Taipei; I often wish BART in the Bay Area was nearly as organized.')
+		.openPopup();	
+        
+        var marker = L.marker([25.138108471468037, 121.50278138035908]).addTo(map)
+		.bindPopup('Scallion Pancakes Stand<br> This hawker sells the best scallion pancakes I&apos;ve ever had. I&apos;d often pick one up on the way home from the metro station.')
+		.openPopup();	
+    </script>
+
+</body>
+</html>
