@@ -25,10 +25,15 @@ body {
 }
 .sidebar {
 	grid-area: sidebar;
-	padding:20px;
     background-color: #88c8cf;
 }
 .content {
 	grid-area: content;
     padding: 50px;
 }
+
+#pic {
+    width: 450px;
+    height: 450px;
+    border-radius: 50%;
+  }
