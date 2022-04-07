@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Hello World</title>
+	<meta charset="utf-8" />
+
+	<!-- style sheets -->
+	<link rel="stylesheet" href="css/style.css">
+
+	<!-- leaflet -->
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+	<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+
+</head>
+<body>
+
+	<div class="header">
+		My World
+	</div>
+	<div class="sidebar">
+		My Sidebar
+	</div>
+	<div class="content">
+		<div id="map"></div>
+	</div>
+
+	<script>
+            // Create array of cities visited
+            let data = [
+            {
+                'title':'Taipei',
+                'lat': 25.0330,
+                'lon': 121.5654
+            },
+            {
+                'title':'Vancouver',
+                'lat': 49.2827,
+                'lon': 123.1207
+            },
+            {
+                'title':'Hong Kong',
+                'lat': 22.3193,
+                'lon': 114.1694
+            },
+            {
+                'title':'Tokyo',
+                'lat': 35.6762,
+                'lon': 139.6503
+            },
+            {
+                'title':'Seattle',
+                'lat': 47.6062,
+                'lon': 122.3321
+            }
+        ]
+
+        // Create Leaflet map
+		var map = L.map('map').setView([34.0697,-118.4432], 17);
+
+		L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+			attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+		}).addTo(map);
+
+        // loop through data and create points on map
+        data.forEach(function(item){
+            console.log('The latitude for ' + item.title + ' is ' + item.lat)
+        });
+		var marker = L.marker([34.0697,-118.4432]).addTo(map)
+				.bindPopup('The Technology Sandbox<br> Where Yoh is sitting this very moment')
+				.openPopup();	
+
+	</script>
+
+
+</body>
+</html>
