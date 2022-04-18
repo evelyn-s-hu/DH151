@@ -1,46 +1,47 @@
 // let's create some data
+
 let data = [
     {
         'id': 0,
-        'title':'Osaka',
-        'lat': 34.6937,
-        'lon': 135.5023,
-        'image': 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Osaka_Castle_02bs3200.jpg/320px-Osaka_Castle_02bs3200.jpg',
-        'description': "Osaka is a large port city and commercial center on the Japanese island of Honshu. It's known for its modern architecture, nightlife and hearty street food. The 16th-century shogunate Osaka Castle, which has undergone several restorations, is its main historical landmark. It's surrounded by a moat and park with plum, peach and cherry-blossom trees. Sumiyoshi-taisha is among Japan’s oldest Shinto shrines. ― Google"
-
+        'title':'Taipei',
+        'lat': 25.0330,
+        'lon': 121.5654,
+        'description': "My motherland! I lived here for 7 months last school year during remote learning and had a blast - minus the part where I had to wake up at 4 in the morning to take my midterms and finals.",
+        'image' : 'https://upload.wikimedia.org/wikipedia/commons/6/6b/Tower_of_Taipei_101.jpg'
     },
     {
         'id': 1,
-        'title':'Cali',
-        'lat': 3.4516,
-        'lon': -76.5320,
-        'image': 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Pascual_Guerrero_U-20WC_2011_CMR-NZL.JPG/320px-Pascual_Guerrero_U-20WC_2011_CMR-NZL.JPG',
-        'description':"Cali is a Colombian city in the Valle del Cauca department, southwest of Bogotá. It’s known for salsa dancing and there are many clubs in the suburb of Juanchito. In Cali’s oldest quarter, the neoclassical San Pedro Cathedral houses paintings of the Quito School. Nearby is the 18th- and 19th-century San Francisco Religious Complex. La Merced Chapel is where the first mass was held after Cali was founded in 1536. ― Google"
+        'title':'Vancouver',
+        'lat': 49.2827,
+        'lon': -123.1207,
+        'description': 'Since I used to live in Seattle, my family would often take weekend roadtrips up to Vancouver. Over the years, we got to see many different sights, one of the most memorable being riding a gondola to the top of a snowy mountain!',
+        'image' : 'https://604now.com/wp-content/uploads/2018/12/vancouver-mountains-snow.jpg'
+    
     },
     {
         'id': 2,
-        'title':'Bangkok',
-        'lat': 13.7563,
-        'lon': 100.5018,
-        'image': 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/Bangkok_skytrain_sunset.jpg/320px-Bangkok_skytrain_sunset.jpg',
-        'description':"Bangkok, Thailand’s capital, is a large city known for ornate shrines and vibrant street life. The boat-filled Chao Phraya River feeds its network of canals, flowing past the Rattanakosin royal district, home to opulent Grand Palace and its sacred Wat Phra Kaew Temple. Nearby is Wat Pho Temple with an enormous reclining Buddha and, on the opposite shore, Wat Arun Temple with its steep steps and Khmer-style spire. ― Google"
+        'title':'Hong Kong',
+        'lat': 22.3186,
+        'lon': 114.1796,
+        'description': 'I got to visit Hong Kong around Christmas in 2017; I was really surprised by how many people there were, despite being used to the crowdedness of Asian countries. Regardless, I had a great time exploring Tsim Sha Tsui and enjoying local delicacies.',
+        'image' : 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d8/Tsim_Sha_Tsui_Overview_2018.jpg/300px-Tsim_Sha_Tsui_Overview_2018.jpg'
     },
     {
         'id': 3,
         'title':'Tokyo',
         'lat': 35.6762,
         'lon': 139.6503,
-        'image':'https://www.stofficetokyo.ch/sites/default/files/styles/featured_image_840x572_/public/2019-01/icu_dronei_34ab_170430-42_r.jpg?itok=mkG94UWD',
-        'description':"Tokyo, Japan’s busy capital, mixes the ultramodern and the traditional, from neon-lit skyscrapers to historic temples. The opulent Meiji Shinto Shrine is known for its towering gate and surrounding woods. The Imperial Palace sits amid large public gardens. The city's many museums offer exhibits ranging from classical art (in the Tokyo National Museum) to a reconstructed kabuki theater (in the Edo-Tokyo Museum). ― Google"
+        'description': 'Our family vacation in Winter 2019 led us to Tokyo - our last trip before the pandemic. We stayed in Ueno and got to visit the more touristy areas of Tokyo - I would love to come again and explore more areas.',
+        'image' : 'https://lp-cms-production.imgix.net/2021-02/Tokyo%20Main.jpg'
     },
     {
         'id': 4,
-        'title':'Los Angeles',
-        'lat': 34.0522,
-        'lon': -118.2437,
-        'image':'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/UCLA_Royce_Hall.jpg/320px-UCLA_Royce_Hall.jpg',
-        'description':"Los Angeles is a sprawling Southern California city and the center of the nation’s film and television industry. Near its iconic Hollywood sign, studios such as Paramount Pictures, Universal and Warner Brothers offer behind-the-scenes tours. On Hollywood Boulevard, TCL Chinese Theatre displays celebrities’ hand- and footprints, the Walk of Fame honors thousands of luminaries and vendors sell maps to stars’ homes. ― Google"
-    },
+        'title':'Seattle',
+        'lat': 47.6062,
+        'lon': -122.3321,
+        'description': "I actually grew up in Seattle and lived here for 9 years! I would love to live here again in the future, if my career leads me back.",
+        'image' : 'https://i.natgeofe.com/n/0652a07e-42ed-4f3d-b2ea-0538de0c5ba3/seattle-travel_3x2.jpg'
+    }
 ]
 
 let map = L.map('map').setView([0,0], 3);
@@ -55,7 +56,7 @@ let myMarkers = L.featureGroup();
 // loop through data
 data.forEach(function(item){
 	// create marker
-	let marker = L.marker([item.lat,item.lon]).bindPopup(item.title)
+	let marker = L.marker([item.lat,item.lon]).bindPopup('<b>' + item.title + '</b> <br>' + "<img class = '.pic' src='" + item.image + "' width='100' height='100'/>" + "<br>" + item.description)
 
 	// add marker to featuregroup
 	myMarkers.addLayer(marker)
