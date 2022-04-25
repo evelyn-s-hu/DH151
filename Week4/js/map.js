@@ -61,8 +61,8 @@ function mapCSV(data){
                 // add marker to featuregroup
                 markers.addLayer(marker)
 
-                // add data to sidebar with onclick event
-                $('.sidebar').append(`<div class="sidebar-item" onclick="flyToIndex(${index})">${item.city_state}</div>`)
+               // add entry to sidebar
+		        $('.sidebar').append(`<div class="sidebar-item" onmouseover="panToImage(${index})">${item.city_state}</div>`)
 
          }
         })
@@ -71,23 +71,8 @@ function mapCSV(data){
         markers.addTo(map)
 
     }
-// function to fly to a location by a given id number
-function flyToIndex(index){
-	map.flyTo([data[index].lat,data[index].lng],12)
-}
 
-// define layers
-let layers = {
-	"My Markers": myMarkers
-}
-
-// add layer control box
-L.control.layers(null,layers).addTo(map)
-
-// function to fly to a location by a given id number
-function flyByIndex(index){
-	map.flyTo([data[index].lat,data[index].lon],12)
-
-	// open the popup
-	myMarkers.getLayers()[index].openPopup()
-}
+    function panToImage(index){
+        map.setZoom(17);
+        map.panTo(markers.getLayers()[index]._latlng);
+    }
