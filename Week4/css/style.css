@@ -2,6 +2,8 @@ body,html {
 	margin:0;
 	height:100%;
 	width:100%;
+	font-family: 'Nunito', sans-serif;
+    font-size: 11pt;
 }
 
 #map {
@@ -11,7 +13,7 @@ body,html {
 body {
 	display: grid;
 	grid-template-rows: 80px 1fr 50px;
-	grid-template-columns: 50% 50%;
+	grid-template-columns: 25% 75%;
 	grid-template-areas: 
 	"header header"
 	"sidebar content"
@@ -21,25 +23,41 @@ body {
 .header {
 	grid-area: header;
 	padding:10px;
-	background-color: #333;
-	color: white;
-	font-size: 2em;
+    background-color: #6d9499;
+    font-family: 'Nunito', sans-serif;
+    font-size: 40px;
+	color: #ffffff;
 }
 
 .sidebar {
-	color: white;
 	grid-area: sidebar;
 	padding:10px;
-	background-color: #555;
+    background-color: #82acb2;
 	overflow: auto;
+	font-family: 'Nunito', sans-serif;
 }
 
 .content {
 	grid-area: content;
+	padding: 0px;
+	font-family: 'Nunito', sans-serif;
 }
 
 .footer {
 	grid-area: footer;
 	padding:10px;
-	background-color: rgb(175, 175, 175);
+	background-color: #6d9499;
+	font-family: 'Nunito', sans-serif;
+}
+
+.sidebar-item {
+    padding: 10px; /* adds inner padding */
+    background: gainsboro; /* background color */
+    border: 1px solid rgb(255, 255, 255); /* border width, style, and color */
+    margin: 5px; /* outer padding */
+    cursor: pointer; /* change cursor to hand on hover */
+}
+
+.sidebar-item:hover {
+	background: #618185;
 }
