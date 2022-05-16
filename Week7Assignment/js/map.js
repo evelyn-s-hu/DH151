@@ -2,19 +2,23 @@
 let map;
 let lat = 0;
 let lon = 0;
-let zl = 3;
+let zl = 10;
 let path = '';
 let geojsonPath = 'data/race2010bystates_may11.geojson';
 let geojson_data;
 let geojson_layer;
+
 let brew = new classyBrew();
+
 let legend = L.control({position: 'bottomright'});
+
 let info_panel = L.control();
 
 // initialize
 $( document ).ready(function() {
-	createMap(lat,lon,zl);
-	getGeoJSON();
+    createMap(lat,lon,zl);
+    // here you have to run all functions that you create later on 
+    getGeoJSON();
 });
 
 // create the map
@@ -26,17 +30,20 @@ function createMap(lat,lon,zl){
 	}).addTo(map);
 }
 
-// function to get the geojson data
+// GRAB & MAP GEOJSON DATA: function to get the geojson data (this is a jquery, similar to papaparse)
 function getGeoJSON(){
 
-	$.getJSON(geojsonPath,function(data){
-		console.log(data)
+	$.getJSON(geojsonPath,function(data){ // geojsonPath is the path to the geojson file
+		// console.log(data)
 
 		// put the data in a global variable
 		geojson_data = data;
 
+        console.log(geojson_data)
+		// console.log (geojson_data)
+
 		// call the map function
-		mapGeoJSON('pop_est') // add a field to be used
+		mapGeoJSON('White') // add the field to be used
 	})
 }
 
@@ -60,22 +67,22 @@ function mapGeoJSON(field){
 
 	// set up the "brew" options
 	brew.setSeries(values);
-	brew.setNumClasses(6);
-	brew.setColorCode('PuBu');
-	brew.classify('quantiles');
+	brew.setNumClasses(9); // between 3 - 9 (or maybe depends on the variable)
+	brew.setColorCode('RdYlGn'); // brew color options 
+	brew.classify('jenks'); // brew classification method 
 
 	// create the layer and add to map
 	geojson_layer = L.geoJson(geojson_data, {
 		style: getStyle, //call a function to style each feature
-		onEachFeature: onEachFeature // actions on each feature
+        onEachFeature: onEachFeature // add this arg to implement actions on each feature
 	}).addTo(map);
 
 	map.fitBounds(geojson_layer.getBounds())
 
-	// create the legend
+    // create the legend
 	createLegend();
 
-	// create the infopanel
+    // create the infopanel
 	createInfoPanel();
 }
 
@@ -85,11 +92,12 @@ function getStyle(feature){
 		color: 'white',
 		weight: 1,
 		fill: true,
-		fillColor: brew.getColorInRange(feature.properties[fieldtomap]),
+		fillColor: brew.getColorInRange(Number(feature.properties[fieldtomap])),
 		fillOpacity: 0.8
 	}
 }
 
+// LEGEND
 function createLegend(){
 	legend.onAdd = function (map) {
 		var div = L.DomUtil.create('div', 'info legend'),
@@ -102,8 +110,8 @@ function createLegend(){
 			to = breaks[i + 1];
 			if(to) {
 				labels.push(
-					'<i style="background:' + brew.getColorInRange(from) + '"></i> ' +
-					from.toFixed(2) + ' &ndash; ' + to.toFixed(2));
+					'<i style="background:' + brew.getColorInRange(Number(from)) + '"></i> ' +
+					Number(from).toFixed(2) + ' &ndash; ' + Number(to).toFixed(2));
 				}
 			}
 			
@@ -114,7 +122,7 @@ function createLegend(){
 		legend.addTo(map);
 }
 
-// Function that defines what will happen on user interactions with each feature
+// onEachFeature ACTIONS: Functions that defines what will happen on user interactions with each feature
 function onEachFeature(feature, layer) {
 	layer.on({
 		mouseover: highlightFeature,
@@ -132,20 +140,19 @@ function highlightFeature(e) {
 		weight: 2,
 		color: '#666',
 		fillOpacity: 0.7
-	},
-	
-	info_panel.update(layer.feature.properties)
-	);
+	});
 
 	if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
 		layer.bringToFront();
 	}
+
+    info_panel.update(layer.feature.properties); // add info panel when a user hovers over a feature
 }
 
 // on mouse out, reset the style, otherwise, it will remain highlighted
 function resetHighlight(e) {
-	geojson_layer.resetStyle(e.target),
-	info_panel.update(); // resets infopanel
+	geojson_layer.resetStyle(e.target);
+    info_panel.update(); // resets infopanel
 }
 
 // on mouse click on a feature, zoom in to it
@@ -153,6 +160,7 @@ function zoomToFeature(e) {
 	map.fitBounds(e.target.getBounds());
 }
 
+// INFO PANEL
 function createInfoPanel(){
 
 	info_panel.onAdd = function (map) {
@@ -165,12 +173,12 @@ function createInfoPanel(){
 	info_panel.update = function (properties) {
 		// if feature is highlighted
 		if(properties){
-			this._div.innerHTML = `<b>${properties.name}</b><br>${fieldtomap}: ${properties[fieldtomap]}`;
+			this._div.innerHTML = `<b>${properties.State}</b><br>${fieldtomap}: ${properties[fieldtomap]}`;
 		}
 		// if feature is not highlighted
 		else
 		{
-			this._div.innerHTML = 'Hover over a country';
+			this._div.innerHTML = 'Hover over a state';
 		}
 	};
 
